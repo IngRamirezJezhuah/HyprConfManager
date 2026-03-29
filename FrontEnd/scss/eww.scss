@@ -1,0 +1,36 @@
+// Variables de color estilo Gnome Adawaito Dark
+$bg-color: #1e1e1e;
+$sidebar-bg: #242424;
+$card-bg: #2d2d2d;
+$acent-color: #3584e4;
+$text-main: #ffffff;
+$border-color: rgba(255, 255, 255, 0.1);
+
+*{
+  all: unset;
+  font-family: "Ubuntu", "Cantarell" , sans-serif;
+}
+
+.content-area {
+  background-color: $bg-color;
+  color: $text-main;
+}
+
+.siderbar-box {
+  background-color: $sidebar-bg ;
+  width: 250px;
+  border-right: 1px solid $border-color;
+  padding: 10px;
+}
+
+.siderbar-btn{
+  padding: 10px;
+  margin: 2px 5px;
+  border-radius: 8px;
+  &:active {
+    background-color: rgba(255,255,255,0.1);
+  }
+  &:hover{
+    background-color: rgba(255,255,255,0.05);
+  }
+}

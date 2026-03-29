@@ -10,30 +10,30 @@
 ;;=============================================
 (include "./modules/sidebar.yuck")
 (include "./modules/wifi/main.yuck")
-(include "./modules/wifi/header.yuck")
-(include "./modules/wifi/cards.yuck")
-(include "./modules/wifi/list.yuck")
 (include "./modules/wifi/list_item.yuck")
-;;placeholder para otros modulos
-(include "./modules/bluetooh/main.yuck")
+(include "./modules/bluetooth/main.yuck")
+(include "./modules/pantalla/main.yuck")
 
 (defwindow config-manager
-  :stacking "fg"
-  :focusable true
+  :monitor 0
+  :stacking "bottom"
+  :focusable false
+  :esclusive false
   :windowtype "dialog"
-  :geometry (geomtry :x "center"
-                     :y "center"
+  :geometry (geometry :x "0px"
+                     :y "0px"
                      :width "1000px"
-                     :heigh "700px"
+                     :height "700px"
                      :anchor "center center")
-  (box :orientaroin "h" :space-evenly false
-  (siderbar-widget)
+  (box :orientation "h" :space-evenly false
+  (sidebar-widget)
   ;; Area de Contenido Principal (el stack)
-  (box :dexpand true :vexpand true :class "content-area"
+  (box :hexpand true :vexpand true :class "content-area"
     (stack :selected {active-view} :transition "crossfade"
       (wifi-view :name "wifi")
-      (bluetooth-placeholder-view :name "Bluetooth")
+      (label :text "VIsta Bluetooth" :name "bluetooth")
       ;; y aqui se agregarian los demas
+      (label :text "pantalla" :name "pantalla")
       )
     )
   )

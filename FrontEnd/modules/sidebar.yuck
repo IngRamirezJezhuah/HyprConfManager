@@ -10,7 +10,7 @@
     (button :class "sidebar-btn ${active-view == 'wifi' ? 'active' : ''}" 
             :onclick "eww update active-view='wifi'"
       (box :space-evenly false
-        (label :text "󰖩" :class "sidebar-icon")
+        (label :text "󰖩 " :class "sidebar-icon")
         (label :text "Inalámbrica" :halign "start" :class "sidebar-text")
       )
     )
@@ -19,10 +19,17 @@
     (button :class "sidebar-btn ${active-view == 'bluetooth' ? 'active' : ''}"
             :onclick "eww update active-view='bluetooth'"
       (box :space-evenly false
-        (label :text "󰂯" :class "sidebar-icon")
+        (label :text "󰂯 " :class "sidebar-icon")
         (label :text "Bluetooth" :halign "start" :class "sidebar-text")
       )
     )
     ;; ... Agrega los demás botones del sidebar aquí ...
+    (button :class "sidebar-btn ${active-view == 'pantalla' ? 'active' : ''}"
+      :onclick "eww update active-view='pantalla'"
+      (box :space-evenly false
+        (label :text "󰌢 " :class "siderbar-icon")
+        (label :text "Pantalla" :halign "start" :class "sidebar-text")
+      )
+    )
   )
 )
