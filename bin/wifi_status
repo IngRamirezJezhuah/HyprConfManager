@@ -1,0 +1,36 @@
+#!/bin/bash
+# ᯤ 📶🛜📡📡📶🛜 echo "📶🛜📡📡📶🛜"
+
+#La cosa que obtiene la liena de red activa
+#filtrado si esta activo y uns da un simon si estamos conectados
+active_info=$(LC_ALL=C nmcli -t -f "ACTIVE,SSID,SIGNAL" dev wifi | grep '^yes' | head -n 1)
+#si esta madre esta vacioa , no hay internet
+if [ -z "$active_info" ]; then
+  echo '{"ssid": "Desconectado", "signal": 0, "icon": "󰞃", "percentage": "0%"}'
+  exit 0
+fi
+
+#esta wea saca la ssid y la seña y von cut el separador, esa chingadera deberia darme el formato en
+#Formato recibido: yes:nombreRed:90 ejemplo recuerdalo DJ futuro
+ssid=$(echo "$active_info" | cut -d':' -f2)
+signal=$(echo "$active_info" | cut -d':' -f3)
+
+#aqui va la logica de los iconos los niveles de potencia
+if [ "$signal" -ge 75 ]; then
+  icon="󰒢" #excelente
+elif [ "$signal" -ge 50 ]; then
+ icon="󰢽" # bueno
+elif [ "$signal" -ge 25 ]; then
+ icon="󰢼" # regular
+else 
+  icon="󰢿" #pobre
+fi
+
+#escupe el json pelon
+printf '{
+  "ssid": "%s",
+  "signal": "%d", 
+  "icon": "%s",
+  "percentage": "%d%%"
+}\n'\
+  "$ssid" "$signal" "$icon" "$signal"   

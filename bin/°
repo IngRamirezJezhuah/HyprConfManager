@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#Argumentos para que esta pendejada sepa que usar
+SSID=$1
+PASS=$2
+
+#si se apendeja y no pasa los argumentos, se le avisa que falta datos
+if [ -z   "$SSID" ]; then
+  read -p "Introduce el SSID (Nombre de la red):" SSID
+fi
+
+if [ -z "$PASS" ]; then
+fi
+
+if 
+  echo '{ 
+  "status": "error", 
+  "message": "Falta el SSID o la contraseña"
+  }'
+  exit 1
+fi
+
+#Entonces si no se conectara con nmcli 
+#LC_ALL=C es para que el pendejo error sea en ingles para procesarlo
+result=$(LC_ALL=C nmcli device wifi connect "$SSID" password "$PASS" 2>&1)
+
+#Esta pendejada checa si se conecto
+if [[ $result == *"successfully activated"* ]]; then
+  printf '{"status" : "success","message" : "Conectado a %s"}\n' "$SSID"
+  else
+    #si esta pendejada falla dar un mensaje de error
+    error_msg=$(echo "$result" | tr -d '"' | tr -d '\n')
+    printf '{"status" : "error","message" : "%s"}\n' "$error_msg"
+fi

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#La chingadera de aqui reescanea y mantiene los datos actualizados
+nmcli device wifi rescan 2>/dev/null
+
+#Lista de redes hay de 2 sopas yo del futuro
+# -t: modo 'terse' (sin tablas, ideal para scripts)
+# -f: seleccionamos los campos SSID, SIGNAL (fuerza) y SECURITY
+raw_data=$(nmcli -t -f "SSID,SIGNAL,SECURITY" device wifi list)
+
+#aqui hago que esta madre lo convierte en texto pelon para Json
+echo "$raw_data" | jq -R -s '
+  split("\n") |
+  map(select(length > 0 ) |
+  split(":") |
+  {
+    ssid: .[0],
+    signal: .[1] | tonumber,
+    segurity: .[2]
+  } | select(.ssid != ""))
+'
+
