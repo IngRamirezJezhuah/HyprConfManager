@@ -1,0 +1,28 @@
+(defwidget sidebar-widget []
+  (box :orientation "v" :class "sidebar-box" :space-evenly false
+    ;; Titulo y controles de sidebar (como la imagen)
+    (box :class "sidebar-title-box" :space-evenly false
+      (label :text "Configuración" :class "sidebar-title")
+      (button :class "meatball-menu" (label :text "󰇘"))
+    )
+    
+    ;; Botón Inalámbrica (Seleccionado en la imagen)
+    (button :class "sidebar-btn ${active-view == 'wifi' ? 'active' : ''}" 
+            :onclick "eww update active-view='wifi'"
+      (box :space-evenly false
+        (label :text "󰖩" :class "sidebar-icon")
+        (label :text "Inalámbrica" :halign "start" :class "sidebar-text")
+      )
+    )
+    
+    ;; Botón Bluetooth
+    (button :class "sidebar-btn ${active-view == 'bluetooth' ? 'active' : ''}"
+            :onclick "eww update active-view='bluetooth'"
+      (box :space-evenly false
+        (label :text "󰂯" :class "sidebar-icon")
+        (label :text "Bluetooth" :halign "start" :class "sidebar-text")
+      )
+    )
+    ;; ... Agrega los demás botones del sidebar aquí ...
+  )
+)

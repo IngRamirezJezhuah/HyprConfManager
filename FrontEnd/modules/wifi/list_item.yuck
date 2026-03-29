@@ -1,0 +1,20 @@
+(defwidget network-list-item [network_data]
+  (box :class "network-item-box" :space-evenly false :spacing 15
+    ;; Icono Wi-Fi dinámico según la señal (usa la lógica Nerd Fonts que diseñamos en el backend)
+    (label :text "${network_data.signal >= 75 ? '󰒢' : network_data.signal >= 50 ? '󰢽' : network_data.signal >= 25 ? '󰢼' : '󰢿'}" 
+           :class "net-icon net-signal-${network_data.signal}")
+    
+    ;; Icono de lock si hay seguridad
+    (label :text {network_data.security != "none" ? "󰌾" : ""} :class "net-icon-lock")
+    
+    ;; Nombre de red
+    (label :text {network_data.ssid} :class "net-ssid" :hexpand true :halign "start" :limit-width 30)
+    
+    ;; Estado (Conectado / Nada) - Compara si el SSID del backend status es igual al de esta red
+    (label :text {wifi-current.ssid == network_data.ssid ? "Conectado" : ""} :class "net-status")
+    
+    ;; Iconos de control (QR y Configuración como en la imagen)
+    (button :class "net-action-btn" (label :text "󰄀")) ;; Icono QR (aproximado)
+    (button :class "net-action-btn" (label :text "󰒓")) ;; Icono Configuración
+  )
+)

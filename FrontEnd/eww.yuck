@@ -1,0 +1,41 @@
+;;=======================================================
+;;            Orquestador raiz
+;;=======================================================
+(include "./variables.yuck")
+
+;; Incluimos los modulos base y sus derivadas
+
+;;=============================================
+;;                  WIFI
+;;=============================================
+(include "./modules/sidebar.yuck")
+(include "./modules/wifi/main.yuck")
+(include "./modules/wifi/header.yuck")
+(include "./modules/wifi/cards.yuck")
+(include "./modules/wifi/list.yuck")
+(include "./modules/wifi/list_item.yuck")
+;;placeholder para otros modulos
+(include "./modules/bluetooh/main.yuck")
+
+(defwindow config-manager
+  :stacking "fg"
+  :focusable true
+  :windowtype "dialog"
+  :geometry (geomtry :x "center"
+                     :y "center"
+                     :width "1000px"
+                     :heigh "700px"
+                     :anchor "center center")
+  (box :orientaroin "h" :space-evenly false
+  (siderbar-widget)
+  ;; Area de Contenido Principal (el stack)
+  (box :dexpand true :vexpand true :class "content-area"
+    (stack :selected {active-view} :transition "crossfade"
+      (wifi-view :name "wifi")
+      (bluetooth-placeholder-view :name "Bluetooth")
+      ;; y aqui se agregarian los demas
+      )
+    )
+  )
+)
+

@@ -1,0 +1,18 @@
+;; -- Variables de Conexion Actual --
+(depoll wifi-current :interval "2s"
+  "./bind/wifi_status")
+
+;; -- Lista de redes Disponibles --
+(defpoll wifi-networks :interval "15s"
+  "./bin/wifi_list")
+
+;; -- Conectarse a internet --
+(defpoll wifi-connect :interval "1s"
+  "./bin/wifi_connect")
+
+
+;; --variables de Estado para el Input --
+(defvar selected-ssid "")
+(defvar show-pass-input false)
+(defvar wifi-password "")
+(defvar active-view)

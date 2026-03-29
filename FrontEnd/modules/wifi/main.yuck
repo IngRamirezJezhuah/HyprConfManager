@@ -1,0 +1,23 @@
+(defwidget wifi-view []
+  (scroll :vscroll true :hscroll false :hexpand true :vexpand true
+    (box :orientation "v" :class "wifi-main-content" :spacing 20 :space-evenly false
+      
+      ;; Llama al Header (derivada)
+      (wifi-view-header)
+      
+      ;; Llama a las Tarjetas (derivada)
+      (wifi-view-cards)
+      
+      ;; Sección de Lista de Redes (derivada)
+      (label :text "Redes visibles" :class "section-title" :halign "start")
+      (scroll :height 300 :vscroll true :hscroll false
+        (box :orientation "v" :spacing 10 :space-evenly false
+          (for network in wifi-networks
+            ;; LLamamos al componente reutilizable para cada red
+            (network-list-item :network_data network)
+          )
+        )
+      )
+    )
+  )
+)
