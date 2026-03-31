@@ -32,3 +32,4 @@ sudo apt update
 sudo apt install jq
 echo -e "${azul}Listo guap@ ya quedo."
 
+#cargo init backend, para crear la carpeta para iniciar ahi 

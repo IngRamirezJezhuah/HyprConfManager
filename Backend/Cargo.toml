@@ -1,0 +1,12 @@
+[package]
+name = "hyperconf-backend"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+#Para convertir estructura de rust en json que ewww entienda
+serde = {version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+#para manejrar comandos del sistema (nmcli) de forma facil
+execute = "0.2"
+
