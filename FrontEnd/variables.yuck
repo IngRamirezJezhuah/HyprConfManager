@@ -1,6 +1,11 @@
 ;; -- Variables de Conexion Actual --
 (defpoll wifi-current :interval "2s"
   "./bin/wifi_status")
+;;=============================================
+;;    Variable del estado de Wifi desde rust
+;;=============================================
+(defpoll wifi_data :interval "5s"
+  "./Backend/target/release/hyperconf --wifi-status")
 
 ;; -- Lista de redes Disponibles --
 (defpoll wifi-networks :interval "15s"
