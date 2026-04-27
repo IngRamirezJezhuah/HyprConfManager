@@ -6,23 +6,32 @@ use serde_json::json;
 //------------------------------------------------
 
 fn get_wifi_statu() -> serde_json::Value {
-    let output = Command::new("nmcli")
+    let output = Command::new("/usr/bin/nmcli")
+        .env("LC_ALL", "C")
         .args(&["-t", "-f", "ACTIVE,SSID,SIGNAL", "dev", "wifi"])
         .output()
         .expect("Fallo al ejecutar nmcli");
 
-    let stdout = String::from_utf8_lossy(&output.stdout);    
+    let stdout = String::from_utf8_lossy(&output.stdout); 
+
     for line in stdout.lines() {
+
         if line.starts_with("yes") {
             let parts: Vec<&str> = line.split(':').collect();
-            return json!({
-                "connected" : true,
-                "ssid": parts[1],
-                "signal": parts[2].parse::<i32>().unwrap_or(0),
-            });
+            if parts.len() >=3 {
+               return json!({
+                    "connected" : true,
+                    "ssid": parts[1],
+                    "signal": parts[2].parse::<i32>().unwrap_or(0),
+                }); 
+            }    
         }
     }
-    json!({"connected": false, "ssid": "Desconectado", "signal": 0})
+    json!({
+        "connected": false, 
+        "ssid": "Desconectado", 
+        "signal": 0
+    })
 }
 
 //------------------------------------------------

@@ -1,11 +1,16 @@
-;; -- Variables de Conexion Actual --
+;;====================================
+;;    Variables de Conexion Actual   |
+;;====================================
+
 (defpoll wifi-current :interval "2s"
   "./bin/wifi_status")
+
 ;;=============================================
-;;    Variable del estado de Wifi desde rust
+;;    Variable del estado de Wifi desde rust  |
 ;;=============================================
-(defpoll wifi_data :interval "5s"
-  "./Backend/target/release/hyperconf --wifi-status")
+
+(defpoll wifi_data :interval "5s" :initial '{"connected": false, "signal": 0, "ssid": "Cargando..."}'
+  "../Backend/target/release/hyperconf-backend --wifi-status")
 
 ;; -- Lista de redes Disponibles --
 (defpoll wifi-networks :interval "15s"

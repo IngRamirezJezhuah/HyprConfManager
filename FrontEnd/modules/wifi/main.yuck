@@ -1,13 +1,27 @@
 (defwidget wifi-view []
   (box :orientation "v" :space-evenly false :class "view-container"
-    (box :orientation "v" :space-evenly false :class "view-container"
-      (label :text "Inalambrica" :class "view-title" :halign "start"))
+  ;;header
+  (box :class "view-header" :orientation "view-header" :orientation "h"
+    (label :text "Inalambrica" :halign "start" :class "view-title")
+    (box :halign "end" :hexpand true
+      (button :onclick "nmcli device wifi rescan" :class "icon-btn" "󰒀")))
 
-    (box :class "card" :orientation "h" :space-evenly false
+    ;; tarjetas de coneccion actual
+    (box :class "card active-card" :orientation "h" :space-evenly false
       (label :text {wifi_data.connected ? "󱚼" : "󱚽"} :class "card-icon")
       (box :orientation "v" :halign "start" :hexpand true
-        (label :text {wifi_data.ssid} :class "card-title" :halign "start")
-        (label :text "Conectado" :class "card-subtitle" :halign "start"))
-      (label :text "${wifi_data.signal}%"))
+         (label :text {wifi_data.ssid} :class "card-title" :halign "start") 
+         (label :text {wifi_data.connected ? "Conectado": "Descaonectado"} :class "card-subtitle" :halign "start"))
+      (label :text "${wifi_data.signal}%" :class "card-extra" ))
+
+    ;; seccion de listas de wifi
+    (box :class "section-label" :halign "start"
+      (label :text "Redes Disponibles"))
+
+    (scroll :vscroll true :height 300
+      (box :orientation "v" :spacing 5
+        ;; Aqui mapeo la lista de redes
+        (label :text "Escaneando redes..." :class "loading-textx")))
+
+    )
   )
-) 
